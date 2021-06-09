@@ -36,7 +36,23 @@ def to_usd(my_price):
 
 # TODO: write some Python code here to produce the desired output
 
-print(len(products))
+#print(len(products))
+
+import datetime
+
+datetime = datetime.datetime.now()
+
+print("")
+print("************************************************************")
+print("Welcome to Hoboken Grocer's Point of Sale Program!")
+
+print(datetime.strftime("%a %d %b")+(" ")+datetime.strftime("%H")+(":")+datetime.strftime("%M"))
+print("")
+print("Please select / scan a valid product ID. When complete, enter 'Done'")
+print("")
+print("-----")
+
+
 
 
 # 1) capture product IDs until we're done
@@ -45,17 +61,17 @@ print(len(products))
 selected_ids = []
 
 while True:
-    selected_id = input("Please select / scan a valid product ID: ")
+    selected_id = input("Please input product ID: ")
     if selected_id.upper() == "DONE":
         break
     else:
         selected_ids.append(selected_id)
-    print(selected_id)
+    #print(selected_id)
 
 print("We have reached the end of the loop")
 print(selected_ids)
 
-selected_ids = [1,2,3,2,1]
+#selected_ids = [1,2,3,2,1]
 
 # 2) perform product look ups to determine what the product's name and price are
 
