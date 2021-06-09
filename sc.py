@@ -43,6 +43,8 @@ import datetime
 datetime = datetime.datetime.now()
 
 print("")
+print("")
+print("")
 print("************************************************************")
 print("Welcome to Hoboken Grocer's Point of Sale Program!")
 
@@ -67,21 +69,25 @@ while True:
     else:
         selected_ids.append(selected_id)
     #print(selected_id)
-
-print("We have reached the end of the loop")
-print(selected_ids)
+print("-----")
+print("Shopping cart list includes items: ",selected_ids)
 
 #selected_ids = [1,2,3,2,1]
 
 # 2) perform product look ups to determine what the product's name and price are
 
+subtotal = 0
+
 for selected_id in selected_ids:
-    print(selected_id)
+    #print(selected_id)
     # look up the corresponding product
     # display the selected product's name and price
 
     matching_product = [p for p in products if str(p["id"]) == str(selected_id)]
-    matching_product = matching_products[0]
-    print(matching_product["name"], matching_product["price"])
+    matching_product = matching_product[0]
+    print("... "+matching_product["name"], to_usd(matching_product["price"]))
+    subtotal = (matching_product["price"])+subtotal
+
+print(to_usd(subtotal))
 
     # use list comprehension to print
