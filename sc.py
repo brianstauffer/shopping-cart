@@ -88,6 +88,7 @@ for selected_id in selected_ids:
     print("... "+matching_product["name"], to_usd(matching_product["price"]))
     subtotal = (matching_product["price"])+subtotal
 
-print(to_usd(subtotal))
+print("-----")
+print("Subtotal: ",to_usd(subtotal))
 
     # use list comprehension to print
