@@ -1,3 +1,5 @@
+
+# define products
 products = [
     {"id":1, "name": "Chocolate Sandwich Cookies", "department": "snacks", "aisle": "cookies cakes", "price": 3.50},
     {"id":2, "name": "All-Seasons Salt", "department": "pantry", "aisle": "spices seasonings", "price": 4.99},
@@ -21,28 +23,95 @@ products = [
     {"id":20, "name": "Pomegranate Cranberry & Aloe Vera Enrich Drink", "department": "beverages", "aisle": "juice nectars", "price": 4.25}
 ] # based on data from Instacart: https://www.instacart.com/datasets/grocery-shopping-2017
 
+valid_options = str([i["id"] for i in products])
+
+# convert to USD formart
+def to_usd(my_price):
+    """
+    Converts a numeric value to usd-formatted string, for printing and display purposes.
+
+    Param: my_price (int or float) like 4000.444444
+
+    Example: to_usd(4000.444444)
+
+    Returns: $4,000.44
+    """
+    return f"${my_price:,.2f}" #> $12,000.71
+
+# setup
+import os
+import dotenv
+dotenv.load_dotenv()
+import datetime
+
+datetime = datetime.datetime.now()
+
+# enter POS system
+print("")
+print("")
+print("")
+print("************************************************************")
+print("")
+print("Welcome to Hoboken Grocer's Point of Sale Program!")
+
+print(datetime.strftime("%a %d %b")+(" ")+datetime.strftime("%H")+(":")+datetime.strftime("%M"))
+print("")
+print("Please select / scan a valid product ID. When complete, enter 'Done'")
+print("")
+print("-----")
+
+# input items for shopping cart and validate
+# used https://www.programiz.com/python-programming/if-elif-else for help with if/elif/else
 selected_ids = []
-#valid_options = products["id"]
-
-
 while True:
-    try:
-        selected_id = input("Please input product ID: ")
-        if selected_id in valid_options:
-            continue
-        else:
-            print("Item not found")
-    except:
-        if selected_id.upper() == "DONE":
-            break
-        else:
-            selected_ids.append(selected_id)
+    selected_id = input("Please input product ID: ")
+    if selected_id.upper() == "DONE":
+        break
+    elif selected_id in valid_options:
+        selected_ids.append(selected_id)
+    else:
+        print("Invalid selection, please try again")
+
+# format and print receipt
+class color:
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+    END = '\033[0m'
+
+print("")
+print("************************************************************")
+print("---------")
+print('|' + color.BOLD + 'RECEIPT' + color.END + '|')
+print("---------")
+print("Hoboken Grocer")
+print(color.UNDERLINE + 'www.HobokenGrocer.com' + color.END)
+print("----------")
+print(f"Checkout at: {datetime.strftime('%a %d %b')} {datetime.strftime('%H')}:{datetime.strftime('%M')}")
+print("----------")
+print("Today you purchased: ")
+
+# aggregate shopping list with item, price, and subtotal
+subtotal = 0
 
 for selected_id in selected_ids:
-    #print(selected_id)
-    # look up the corresponding product
-    # display the selected product's name and price
-
     matching_product = [p for p in products if str(p["id"]) == str(selected_id)]
     matching_product = matching_product[0]
-    print(f"... {matching_product['name']}")
+    print(f"... {matching_product['name']}  ({(to_usd(matching_product['price']))})")
+    subtotal = (matching_product["price"])+subtotal
+
+print("----------")
+print(f"Subtotal: {to_usd(subtotal)}")
+
+# calculate tax using .env
+tax_rate = float(os.getenv("tax_rate"))
+tax = to_usd(subtotal*tax_rate)
+print(f"Tax: {tax}")
+
+# total up bill
+total = to_usd((1+tax_rate)*subtotal)
+print(f"Total: {total}")
+print("----------")
+print("Thank you for shopping, please come again soon!")
+print("")
+print("************************************************************")
+print("")
