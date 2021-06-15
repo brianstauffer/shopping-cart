@@ -1,8 +1,7 @@
 # shopping-cart
 
 Welcome to the Shopping Cart exercise!
-This program requires a new conda .env as well as a pip install python-dotenv, pip install pandas, pip install sendgrid
-
+This program requires a new conda .env as well as a pip install python-dotenv, pip install pandas
 
 Before you start the program, you can adjust the tax rate under the .env files
 
