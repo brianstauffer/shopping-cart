@@ -21,81 +21,22 @@ products = [
     {"id":20, "name": "Pomegranate Cranberry & Aloe Vera Enrich Drink", "department": "beverages", "aisle": "juice nectars", "price": 4.25}
 ] # based on data from Instacart: https://www.instacart.com/datasets/grocery-shopping-2017
 
-def to_usd(my_price):
-    """
-    Converts a numeric value to usd-formatted string, for printing and display purposes.
-
-    Param: my_price (int or float) like 4000.444444
-
-    Example: to_usd(4000.444444)
-
-    Returns: $4,000.44
-    """
-    return f"${my_price:,.2f}" #> $12,000.71
-
-
-# TODO: write some Python code here to produce the desired output
-
-#print(len(products))
-
-import datetime
-
-datetime = datetime.datetime.now()
-
-print("")
-print("")
-print("")
-print("************************************************************")
-print("")
-print("Welcome to Hoboken Grocer's Point of Sale Program!")
-
-print(datetime.strftime("%a %d %b")+(" ")+datetime.strftime("%H")+(":")+datetime.strftime("%M"))
-print("")
-print("Please select / scan a valid product ID. When complete, enter 'Done'")
-print("")
-print("-----")
-
-valid_options = str([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20])
-
-
-# 1) capture product IDs until we're done
-    # use infinite while loop
-
 selected_ids = []
+#valid_options = products["id"]
+
 
 while True:
-    selected_id = input("Please input product ID: ")
-    if selected_id.upper() == "DONE":
-        break
-    elif selected_id in valid_options:
-        selected_ids.append(selected_id)
-    else:
-        print("Invalid selection, please try again")
-
-class color:
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
-    END = '\033[0m'
-
-print("")
-print("************************************************************")
-print("---------")
-print('|' + color.BOLD + 'RECEIPT' + color.END + '|')
-print("---------")
-print("Hoboken Grocer")
-print(color.UNDERLINE + 'www.HobokenGrocer.com' + color.END)
-print("----------")
-print(f"Checkout at: {datetime.strftime('%a %d %b')} {datetime.strftime('%H')}:{datetime.strftime('%M')}")
-print("----------")
-
-#print("Shopping cart list includes items: ",selected_ids)
-
-#selected_ids = [1,2,3,2,1]
-
-# 2) perform product look ups to determine what the product's name and price are
-
-print("Today you purchased: ")
-subtotal = 0
+    try:
+        selected_id = input("Please input product ID: ")
+        if selected_id in valid_options:
+            continue
+        else:
+            print("Item not found")
+    except:
+        if selected_id.upper() == "DONE":
+            break
+        else:
+            selected_ids.append(selected_id)
 
 for selected_id in selected_ids:
     #print(selected_id)
@@ -104,22 +45,4 @@ for selected_id in selected_ids:
 
     matching_product = [p for p in products if str(p["id"]) == str(selected_id)]
     matching_product = matching_product[0]
-    print(f"... {matching_product['name']}  ({(to_usd(matching_product['price']))})")
-    subtotal = (matching_product["price"])+subtotal
-
-print("----------")
-#print("Subtotal: ",to_usd(subtotal))
-print(f"Subtotal: {to_usd(subtotal)}")
-
-taxrate = .0875
-tax = to_usd(subtotal*taxrate)
-print(f"Tax: {tax}")
-
-total = to_usd((1+taxrate)*subtotal)
-print(f"Total: {total}")
-print("----------")
-print("Thank you for shopping, please come again soon!")
-print("")
-print("************************************************************")
-print("")
-    # use list comprehension to print
+    print(f"... {matching_product['name']}")
