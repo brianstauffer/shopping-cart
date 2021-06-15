@@ -55,13 +55,14 @@ print("Please select / scan a valid product ID. When complete, enter 'Done'")
 print("")
 print("-----")
 
-valid_options = str([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20])
-
+valid_options = str([i["id"] for i in products])
 
 # 1) capture product IDs until we're done
     # use infinite while loop
 
 selected_ids = []
+
+# used https://www.programiz.com/python-programming/if-elif-else for help with if/elif/else
 
 while True:
     selected_id = input("Please input product ID: ")
