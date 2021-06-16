@@ -79,7 +79,7 @@ while True:
     selected_id = selected_id.strip()
     if selected_id.upper() == "DONE":
         break
-    elif selected_id == "":
+    elif selected_id == "":s
         print("Invalid selection, please try again")
     elif selected_id in valid_options:
         selected_ids.append(selected_id)
